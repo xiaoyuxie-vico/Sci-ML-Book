@@ -111,10 +111,27 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part 1. Fourier Neural Operator
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="FNO/FNO-1D/FNO-1D.html">
    Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part 2. DeepONet
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="FNO/FNO-2D/FNO-2D.html">
+   Hands-on tutorials - Fourier Neural Operator for 2D Darcy equation
   </a>
  </li>
 </ul>
@@ -295,13 +312,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#content">
-   Content
+  <a class="reference internal nav-link" href="#table-of-contents">
+   Table of contents
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#update-online-book">
-   Update online book
+  <a class="reference internal nav-link" href="#contact">
+   Contact
   </a>
  </li>
 </ul>
@@ -324,13 +341,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#content">
-   Content
+  <a class="reference internal nav-link" href="#table-of-contents">
+   Table of contents
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#update-online-book">
-   Update online book
+  <a class="reference internal nav-link" href="#contact">
+   Contact
   </a>
  </li>
 </ul>
@@ -345,21 +362,40 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="sci-ml-book">
 <h1>Sci-ML-Book<a class="headerlink" href="#sci-ml-book" title="Permalink to this headline">#</a></h1>
-<section id="content">
-<h2>Content<a class="headerlink" href="#content" title="Permalink to this headline">#</a></h2>
+<section id="table-of-contents">
+<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">#</a></h2>
+<p>In this interactive scientific machine learning book, I will include these contents:</p>
 <ol class="simple">
-<li><p>Forward model (1D, 2D)</p></li>
-<li><p>Inverse model</p></li>
-<li><p>Data-driven discovery</p></li>
-<li><p>Different equations</p></li>
+<li><p>Forward model with deep learning</p>
+<ol class="simple">
+<li><p>Operator learning</p>
+<ol class="simple">
+<li><p>Fourier Neural Operator</p>
+<ol class="simple">
+<li><p>Fourier Neural Operator for 1D burgers equation [Done]</p></li>
+</ol>
+</li>
+<li><p>DeepONet</p></li>
+<li><p>Physics-informed neural network</p></li>
+</ol>
+</li>
+<li><p>Purely data-driven methods</p>
+<ol class="simple">
+<li><p>U-Net</p></li>
+<li><p>ConvLSTM</p></li>
+<li><p>Transformer</p></li>
+<li><p>Graph Neural networks</p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Inverse model with deep learning</p></li>
+<li><p>Data-driven discovery of governing equations</p></li>
 </ol>
 </section>
-<section id="update-online-book">
-<h2>Update online book<a class="headerlink" href="#update-online-book" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
-<li><p>Re-build your book with <code class="docutils literal notranslate"><span class="pre">jupyter-book</span> <span class="pre">build</span> <span class="pre">Sci-ML-Book/</span></code>;</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">ghp-import</span> <span class="pre">-n</span> <span class="pre">-p</span> <span class="pre">-f</span> <span class="pre">_build/html</span></code> as before to push the newly built HTML to the gh-pages branch.</p></li>
-</ol>
+<section id="contact">
+<h2>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">#</a></h2>
+<p>If you are also interested in this field, please feel free to contact me by sendind an email to <a class="reference external" href="mailto:xiaoyuxie2020&#37;&#52;&#48;u&#46;northwestern&#46;edu">xiaoyuxie2020<span>&#64;</span>u<span>&#46;</span>northwestern<span>&#46;</span>edu</a>.</p>
 </section>
 </section>
 
