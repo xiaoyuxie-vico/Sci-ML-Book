@@ -10,6 +10,9 @@ In this interactive book, you will learn the state-of-the-art deep learning meth
 ```{tableofcontents}
 ```
 
+## Discord Community
+I created a discord channel for people with similar interests to discuss in depth. The discord channel can be found [here](https://discord.gg/QBEeVmG3).
+
 ## Contact
 If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 
 
