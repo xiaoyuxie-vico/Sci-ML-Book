@@ -17,7 +17,7 @@ If you are also interested in this field, please feel free to contact me by send
 If you find this book helful, please cite it:
 ```
 @book{xie2024sml,
-  title={Scientific Machine Learning},
+  title={Hands-on Scientific Machine Learning},
   author={Xiaoyu Xie},
   url={https://xiaoyuxie.top/Sci-ML-Book},
   year={2024},
