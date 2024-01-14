@@ -1,60 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" data-content_root="" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Fourier Neural Operator &#8212; Scientific Machine Learning</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    <title>Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation &#8212; Scientific Machine Learning</title>
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
-  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -62,111 +50,60 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'FNO/FNO-1D/FNO-1D';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Welcome to Scientific Machine Learning Book" href="../../intro.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
+    
+    <div class="container-fluid" id="banner"></div>
 
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-
-  <header>
-  
-    <div class="bd-header navbar navbar-expand-lg bd-navbar">
-    </div>
-  
-  </header>
-
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
-      
-      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="../../intro.html">
-  
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="../../_static/logo.png" class="logo__image only-light" alt="Scientific Machine Learning - Home"/>
-    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Scientific Machine Learning - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Scientific Machine Learning</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -176,243 +113,339 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fourier Neural Operator</a></li>
-
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
   
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
   </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FFNO/FNO-1D/FNO-1D.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../../_sources/FNO/FNO-1D/FNO-1D.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
+  <div class="menu-dropdown__content">
+    <ul>
       <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/FNO/FNO-1D/FNO-1D.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
 >
   
 
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
   </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
       
-  </ul>
+    </ul>
+  </div>
 </div>
-
-
-
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fourier Neural Operator</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fourier Neural Operator</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">Reference</a></li>
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FFNO/FNO-1D/FNO-1D.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/FNO/FNO-1D/FNO-1D.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-fno-model">
+     Define FNO model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#configuration">
+     Configuration
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset-preparation">
+     Dataset preparation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-training">
+     Model training
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-evaluation">
+     Model evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
+ </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-fno-model">
+     Define FNO model
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#configuration">
+     Configuration
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset-preparation">
+     Dataset preparation
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-training">
+     Model training
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-evaluation">
+     Model evaluation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reference">
+   Reference
+  </a>
+ </li>
+</ul>
 
-              
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="fourier-neural-operator">
-<h1>Fourier Neural Operator<a class="headerlink" href="#fourier-neural-operator" title="Permalink to this heading">#</a></h1>
+              <div>
+                
+  <section id="hands-on-tutorials-fourier-neural-operator-for-1d-burgers-equation">
+<h1>Hands-on tutorials - Fourier Neural Operator for 1D Burgers equation<a class="headerlink" href="#hands-on-tutorials-fourier-neural-operator-for-1d-burgers-equation" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>Author: Xiaoyu Xie</p></li>
+<li><p>Email: <a class="reference external" href="mailto:xiaoyuxie2020&#37;&#52;&#48;u&#46;northwestern&#46;edu">xiaoyuxie2020<span>&#64;</span>u<span>&#46;</span>northwestern<span>&#46;</span>edu</a></p></li>
+<li><p>Date: January 13, 2024</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">from</span> <span class="nn">torch.nn.parameter</span> <span class="kn">import</span> <span class="n">Parameter</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span>
-<span class="kn">from</span> <span class="nn">utilities3</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">scipy</span>
 
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;torch.cuda.is_available(): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -421,15 +454,14 @@ document.write(`
   from .autonotebook import tqdm as notebook_tqdm
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.cuda.is_available(): True
-</pre></div>
 </div>
 </div>
-</div>
+<section id="define-fno-model">
+<h2>Define FNO model<a class="headerlink" href="#define-fno-model" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SpectralConv1d</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Spectral Convolutional 1D Layer.</span>
 
 <span class="sd">    Args:</span>
@@ -459,7 +491,7 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">weights1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">compl_mul1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs complex multiplication between input and weights.</span>
 
 <span class="sd">        Args:</span>
@@ -472,8 +504,8 @@ document.write(`
         <span class="c1"># (batch, in_channel, x ), (in_channel, out_channel, x) -&gt; (batch, out_channel, x)</span>
         <span class="c1"># in_channel is the common dimension along which the operation is performed. </span>
         <span class="c1"># It suggests that every channel (or feature) of the input is being transformed into a new set of channels (or features) in the output.</span>
-        <span class="c1"># The operation iterates over each batch and each position x, multiplying the input </span>
-        <span class="c1"># channels by the corresponding weights and summing the results to produce the output channels.</span>
+        <span class="c1"># The operation iterates over each batch and each position x, multiplying the input channels </span>
+        <span class="c1"># by the corresponding weights and summing the results to produce the output channels.</span>
         
         <span class="c1"># For a given position i in the x dimension and a given batch element:</span>
         <span class="c1"># Take all values in A at this position and batch (A[batch, :, i]) – a slice of shape (in_channel).</span>
@@ -483,21 +515,22 @@ document.write(`
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;bix,iox-&gt;box&quot;</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="c1"># Compute Fourier coeffcients up to factor of e^(- something constant)</span>
-        <span class="n">x_ft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># [Batch, Nc, Nx] -&gt; [Batch, Nc, Nx//2 + 1], eg. [20, 64, 128] -&gt; [20, 64, 65]</span>
+        <span class="c1"># Compute Fourier coeffcients</span>
+        <span class="n">x_ft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># [Batch, C_in, Nx] -&gt; [Batch, C_in, Nx//2 + 1], eg. [20, 64, 128] -&gt; [20, 64, 65]</span>
         
         <span class="c1"># Multiply relevant Fourier modes</span>
         <span class="n">out_ft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">)</span> <span class="c1"># [Batch, Nc, Nx//2 + 1], eg. [20, 64, 65]</span>
-        <span class="n">out_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compl_mul1d</span><span class="p">(</span><span class="n">x_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights1</span><span class="p">)</span>
+        <span class="c1"># [Batch, C_in, self.modes1] * [C_in, C_out, self.modes1] -&gt; [Batch, C_out, self.modes1]</span>
+        <span class="n">out_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compl_mul1d</span><span class="p">(</span><span class="n">x_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights1</span><span class="p">)</span>  
 
         <span class="c1"># Return to physical space</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">out_ft</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">out_ft</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># [Batch, C_out, self.modes1] -&gt; [Batch, C_out, Nx], eg. [20, 64, 65] -&gt; [20, 64, 128]</span>
         <span class="k">return</span> <span class="n">x</span>
 
 
 <span class="k">class</span> <span class="nc">FNO1d</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modes</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        1D Fourier Neural Operator model.</span>
 
 <span class="sd">        Args:</span>
@@ -524,326 +557,284 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="c1"># stage 1: lift the channel from 2 to self.width = 64</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, Nc] -&gt; [Batch, Nx, Width], eg. [20, 128, 2] -&gt; [20, 128, 64]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, Width], eg. [20, 128, 2] -&gt; [20, 128, 64]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
 
         <span class="c1"># stage 2: integral operators u&#39; = (W + K)(u).</span>
         <span class="c1"># W is the linear transformation; K is the spectral convolution kernel.</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
-        <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
 
         <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
 
         <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>           <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
 
         <span class="n">x1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>             <span class="c1"># [Batch, Nc, Nx], eg. [20, 64, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span>             <span class="c1"># [Batch, C, Nx], eg. [20, 64, 128]</span>
 
         <span class="c1"># stage 3: put the channel back to 1</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [Batch, Nx, Nc], eg. [20, 128, 64]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, Nc] -&gt; [Batch, Nx, 128], eg. [20, 128, 64] -&gt; [20, 128, 128]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># [Batch, Nx, C], eg. [20, 128, 64]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, 128], eg. [20, 128, 64] -&gt; [20, 128, 128]</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, Nc] -&gt; [Batch, Nx, 1], eg. [20, 128, 128] -&gt; [20, 128, 1]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, 1], eg. [20, 128, 128] -&gt; [20, 128, 1]</span>
         
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">training_data_resolution</span> <span class="o">=</span> <span class="mi">128</span> <span class="c1"># resolution of the training data</span>
-<span class="n">save_index</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># index of the saving folder</span>
-<span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/home/xxd5545/deeponet-fno/data/burgers/burgers_data_R10.mat&#39;</span>
-
-<span class="n">ntrain</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">ntest</span> <span class="o">=</span> <span class="mi">200</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="n">training_data_resolution</span>
-<span class="c1"># sub = 2**6 #subsampling rate</span>
-<span class="n">sub</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span> <span class="o">//</span> <span class="n">s</span>  <span class="c1"># subsampling rate (step size)</span>
-
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
-
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">20</span>       <span class="c1"># default 500</span>
-<span class="c1"># epochs = 500       # default 500</span>
-<span class="n">step_size</span> <span class="o">=</span> <span class="mi">100</span>     <span class="c1"># default 100</span>
-<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.5</span>
-
-<span class="n">modes</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="n">width</span> <span class="o">=</span> <span class="mi">64</span>
-
-<span class="c1">################################################################</span>
-<span class="c1"># read training data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># dictionary</span>
-<span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># shape: (10000, 128) (batch, Nx)</span>
-<span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># shape: (10000, 128) (batch, Nx)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_data:&#39;</span><span class="p">,</span> <span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:</span><span class="n">ntrain</span><span class="p">,:]</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_data</span><span class="p">[:</span><span class="n">ntrain</span><span class="p">,:]</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">ntest</span><span class="p">:,:]</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">ntest</span><span class="p">:,:]</span>
-
-<span class="c1"># cat the locations information</span>
-<span class="n">grid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">13</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,:]</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ntrain</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ntrain</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ntest</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ntest</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="c1"># model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">FNO1d</span><span class="p">(</span><span class="n">modes</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">count_params</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
-
-<span class="c1">################################################################</span>
-<span class="c1"># training and evaluation</span>
-<span class="c1">################################################################</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
-<span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="n">step_size</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
-
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">myloss</span> <span class="o">=</span> <span class="n">LpLoss</span><span class="p">(</span><span class="n">size_average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="c1"># y_normalizer.cuda()</span>
-<span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-    <span class="n">t1</span> <span class="o">=</span> <span class="n">default_timer</span><span class="p">()</span>
-    <span class="n">train_mse</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">train_l2</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="n">mse</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mse_loss</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
-        <span class="n">mse</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-        <span class="c1"># out = y_normalizer.decode(out.view(batch_size, -1))</span>
-        <span class="c1"># y = y_normalizer.decode(y)</span>
-        
-        <span class="n">l2</span> <span class="o">=</span> <span class="n">myloss</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="c1"># l2.backward() # use the l2 relative loss</span>
-
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-        <span class="n">train_mse</span> <span class="o">+=</span> <span class="n">mse</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="n">train_l2</span> <span class="o">+=</span> <span class="n">l2</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        
-    <span class="c1">#     break</span>
-    <span class="c1"># break</span>
-
-    <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-    <span class="n">test_l2</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="c1"># out = y_normalizer.decode(out.view(batch_size, -1))</span>
-            <span class="n">test_l2</span> <span class="o">+=</span> <span class="n">myloss</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-
-    <span class="n">train_mse</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span>
-    <span class="n">train_l2</span> <span class="o">/=</span> <span class="n">ntrain</span>
-    <span class="n">test_l2</span> <span class="o">/=</span> <span class="n">ntest</span>
-
-    <span class="n">t2</span> <span class="o">=</span> <span class="n">default_timer</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epoch: </span><span class="si">%d</span><span class="s2">, time: </span><span class="si">%.3f</span><span class="s2">, Train Loss: </span><span class="si">%.3e</span><span class="s2">, Train l2: </span><span class="si">%.4f</span><span class="s2">, Test l2: </span><span class="si">%.4f</span><span class="s2">&quot;</span> 
-                <span class="o">%</span> <span class="p">(</span> <span class="n">ep</span><span class="p">,</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span><span class="p">,</span> <span class="n">train_mse</span><span class="p">,</span> <span class="n">train_l2</span><span class="p">,</span> <span class="n">test_l2</span><span class="p">)</span> <span class="p">)</span>
-    <span class="c1"># print(ep, t2-t1, train_mse, train_l2, test_l2)</span>
-
-<span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=============================&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training done...&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training time: </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">elapsed</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=============================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_data: torch.Size([2048, 128]) torch.Size([2048, 128])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>287425
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 0, time: 2.173, Train Loss: 5.068e-02, Train l2: 0.3746, Test l2: 0.0975
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 1, time: 0.486, Train Loss: 1.053e-03, Train l2: 0.0645, Test l2: 0.0476
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 2, time: 0.489, Train Loss: 5.437e-04, Train l2: 0.0409, Test l2: 0.0447
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 3, time: 0.488, Train Loss: 3.961e-04, Train l2: 0.0362, Test l2: 0.0336
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 4, time: 0.486, Train Loss: 4.201e-04, Train l2: 0.0365, Test l2: 0.0536
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 5, time: 0.486, Train Loss: 5.260e-04, Train l2: 0.0452, Test l2: 0.0400
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 6, time: 0.481, Train Loss: 3.839e-04, Train l2: 0.0351, Test l2: 0.0410
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 7, time: 0.488, Train Loss: 2.783e-04, Train l2: 0.0316, Test l2: 0.0274
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 8, time: 0.487, Train Loss: 2.544e-04, Train l2: 0.0288, Test l2: 0.0240
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 9, time: 0.477, Train Loss: 2.769e-04, Train l2: 0.0297, Test l2: 0.0287
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 10, time: 0.487, Train Loss: 2.740e-04, Train l2: 0.0318, Test l2: 0.0281
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 11, time: 0.485, Train Loss: 3.289e-04, Train l2: 0.0357, Test l2: 0.0306
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 12, time: 0.490, Train Loss: 3.961e-04, Train l2: 0.0389, Test l2: 0.0324
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 13, time: 0.484, Train Loss: 3.180e-04, Train l2: 0.0356, Test l2: 0.0295
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 14, time: 0.481, Train Loss: 3.102e-04, Train l2: 0.0322, Test l2: 0.0354
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 15, time: 0.485, Train Loss: 4.965e-04, Train l2: 0.0452, Test l2: 0.0393
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 16, time: 0.483, Train Loss: 3.136e-04, Train l2: 0.0342, Test l2: 0.0329
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 17, time: 0.483, Train Loss: 2.405e-04, Train l2: 0.0292, Test l2: 0.0482
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 18, time: 0.484, Train Loss: 3.499e-04, Train l2: 0.0376, Test l2: 0.0220
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 19, time: 0.484, Train Loss: 2.306e-04, Train l2: 0.0282, Test l2: 0.0333
-
-=============================
-Training done...
-Training time: 11.389
-=============================
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ====================================</span>
-<span class="c1"># saving settings</span>
-<span class="c1"># ====================================</span>
-<span class="n">current_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">resolution</span> <span class="o">=</span> <span class="s2">&quot;TrainRes_&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">training_data_resolution</span><span class="p">)</span>
-<span class="n">folder_index</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">save_index</span><span class="p">)</span>
-
-<span class="n">results_dir</span> <span class="o">=</span> <span class="s2">&quot;/results/&quot;</span> <span class="o">+</span> <span class="n">resolution</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">folder_index</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span>
-<span class="n">save_results_to</span> <span class="o">=</span> <span class="n">current_directory</span> <span class="o">+</span> <span class="n">results_dir</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_results_to</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_results_to</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Config</span><span class="p">():</span>
+    <span class="c1">#========================#</span>
+    <span class="c1"># Training parameters</span>
+    <span class="c1">#========================#</span>
+    <span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">500</span>                  <span class="c1"># number of training epoch</span>
+    <span class="c1"># num_epoch = 20</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">20</span>                  <span class="c1"># batch size</span>
     
-<span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;/model/&quot;</span> <span class="o">+</span> <span class="n">resolution</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">folder_index</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span>
-<span class="n">save_models_to</span> <span class="o">=</span> <span class="n">current_directory</span> <span class="o">+</span> <span class="n">model_dir</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_models_to</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_models_to</span><span class="p">)</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">save_models_to</span><span class="o">+</span><span class="s1">&#39;fourier_burgers.pkl&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataloader</span> <span class="o">=</span> <span class="n">MatReader</span><span class="p">(</span><span class="s1">&#39;/home/xxd5545/deeponet-fno/data/burgers/burgers_data_R10.mat&#39;</span><span class="p">)</span>
-
-<span class="c1"># test_data_res_list = [64, 128, 256, 512, 1024, 2048, 4096, 8192]</span>
-<span class="n">test_data_res_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">test_data_res</span> <span class="ow">in</span> <span class="n">test_data_res_list</span><span class="p">:</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">test_data_res</span>
-    <span class="n">sub</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span><span class="o">//</span><span class="n">s</span>
-
-    <span class="n">x_data</span> <span class="o">=</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">read_field</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[:,::</span><span class="n">sub</span><span class="p">]</span>
-    <span class="n">y_data</span> <span class="o">=</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">read_field</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)[:,::</span><span class="n">sub</span><span class="p">]</span>
-    <span class="n">x_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">ntest</span><span class="p">:,:]</span>
-    <span class="n">y_test</span> <span class="o">=</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">ntest</span><span class="p">:,:]</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,:]</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-    <span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ntest</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ntest</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Adam optimizer parameters</span>
+    <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">1e-4</span>              <span class="c1"># weight decay for Adam optimizer</span>
     
-    <span class="n">t1</span> <span class="o">=</span> <span class="n">default_timer</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
-            <span class="n">test_l2</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+    <span class="c1"># learning rate decay parameters</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span>                       <span class="c1"># learning rate</span>
+    <span class="n">step_size</span> <span class="o">=</span> <span class="mi">100</span>                  <span class="c1"># step size for step-wise learning rate decay</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.5</span>                      <span class="c1"># the decay coefficient for step-wise learning rate decay</span>
     
-            <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">pred</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+    <span class="n">modes</span> <span class="o">=</span> <span class="mi">16</span>                       <span class="c1"># number of Fourier modes to multiply, at most floor(N/2) + 1</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="mi">64</span>                       <span class="c1"># number of hidden channel</span>
     
-            <span class="n">test_l2</span> <span class="o">+=</span> <span class="n">myloss</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-            <span class="c1"># print(index, test_l2)</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">t2</span> <span class="o">=</span> <span class="n">default_timer</span><span class="p">()</span>
-    <span class="n">testing_time</span> <span class="o">=</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span>
+    <span class="c1">#========================#</span>
+    <span class="c1"># dataset information</span>
+    <span class="c1">#========================#</span>
+    <span class="c1"># download dataset from: https://drive.google.com/file/d/16a8od4vidbiNR3WtaBPCSZ0T3moxjhYe/view?usp=drive_link</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;dataset/burgers_data_R10.mat&#39;</span>      
+    <span class="n">sub</span> <span class="o">=</span> <span class="mi">8</span>                             <span class="c1"># downsample rate for spatial dimension</span>
+    <span class="n">resolution_original</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span>         <span class="c1"># original resolution of the dataset</span>
+    <span class="n">num_train</span> <span class="o">=</span> <span class="mi">1000</span>                    <span class="c1"># number of training data</span>
+    <span class="n">num_test</span> <span class="o">=</span> <span class="mi">200</span>                      <span class="c1"># number of test data</span>
     
-    <span class="c1"># plot the first sample</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ground Truth&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">y_test</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;test_data_res: </span><span class="si">{</span><span class="n">test_data_res</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;x_test&#39;</span><span class="p">,</span> <span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;y_test&#39;</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;pred&#39;</span><span class="p">,</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="c1"># scipy.io.savemat(&#39;pred/burger_test.mat&#39;, mdict={&#39;pred&#39;: pred.cpu().numpy()})</span>
-    <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">savemat</span><span class="p">(</span><span class="n">save_results_to</span><span class="o">+</span><span class="s1">&#39;burger_test_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">test_data_res</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.mat&#39;</span><span class="p">,</span> 
-                      <span class="n">mdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x_test&#39;</span><span class="p">:</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">read_field</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="o">-</span><span class="n">ntest</span><span class="p">:,::</span><span class="n">sub</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
-                            <span class="s1">&#39;y_test&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> 
-                            <span class="s1">&#39;y_pred&#39;</span><span class="p">:</span> <span class="n">pred</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
-                            <span class="s1">&#39;testing_time&#39;</span><span class="p">:</span> <span class="n">testing_time</span><span class="p">})</span>
+    <span class="c1">#========================#</span>
+    <span class="c1"># results</span>
+    <span class="c1">#========================#</span>
+    <span class="n">model_path</span> <span class="o">=</span> <span class="s1">&#39;results/model_burgers_R10&#39;</span>
+    
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_test torch.Size([200, 64, 2]) y_test torch.Size([200, 64]) pred torch.Size([200, 64])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_test torch.Size([200, 256, 2]) y_test torch.Size([200, 256]) pred torch.Size([200, 256])
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_test torch.Size([200, 1024, 2]) y_test torch.Size([200, 1024]) pred torch.Size([200, 1024])
-</pre></div>
-</div>
-<img alt="../../_images/484a0d3e26f7310f12cf189abf3487494619f4a9dd810f3854498e5dbed58bfa.png" src="../../_images/484a0d3e26f7310f12cf189abf3487494619f4a9dd810f3854498e5dbed58bfa.png" />
-<img alt="../../_images/2f99334b1cca1b897a81226fc4da3a354786ca368599e499b021c71fedab06e3.png" src="../../_images/2f99334b1cca1b897a81226fc4da3a354786ca368599e499b021c71fedab06e3.png" />
-<img alt="../../_images/389e1dec4159bc9fe38f69447d8b98a864eacc8339d541917cbe1d5ec644d485.png" src="../../_images/389e1dec4159bc9fe38f69447d8b98a864eacc8339d541917cbe1d5ec644d485.png" />
 </div>
 </div>
 </section>
+<section id="dataset-preparation">
+<h2>Dataset preparation<a class="headerlink" href="#dataset-preparation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024) </span>
+    <span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024) </span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] downsampled raw data - x_data: </span><span class="si">{</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_data: </span><span class="si">{</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># split into train and test</span>
+    <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (num_trajectory, Nx): (1000, 128)</span>
+    <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:]</span>
+
+    <span class="c1"># prepare grid information (optional)</span>
+    <span class="n">grid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># downsampled grid, (Nx, 1): (128, 1)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> 
+
+    <span class="c1"># concatenate the spatial grid and the spatial solution</span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_train: </span><span class="si">{</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_test: </span><span class="si">{</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># create data loader</span>
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> 
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> 
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> 
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> 
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span>
+
+<span class="c1"># load training data</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># a dictionary </span>
+<span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Dataset] downsampled raw data - x_data: torch.Size([2048, 1024]), y_data: torch.Size([2048, 1024])
+[Dataset] x_train: torch.Size([1000, 1024, 2]), y_train: torch.Size([1000, 1024])
+[Dataset] x_test: torch.Size([200, 1024, 2]), y_test: torch.Size([200, 1024])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-training">
+<h2>Model training<a class="headerlink" href="#model-training" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define a model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">FNO1d</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">modes</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+<span class="c1"># define a optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">)</span>
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">step_size</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+<span class="c1"># loss_func = LpLoss(size_average=False) # used in original FNO paper</span>
+<span class="n">loss_func</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span> <span class="c1"># MSE loss</span>
+
+<span class="n">loss_history_train</span><span class="p">,</span> <span class="n">loss_history_test</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="c1"># start training</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_epoch</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">loss_train</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">loss_train</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">loss_history_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_train</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>  <span class="c1"># change the learning rate</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">loss_test</span> <span class="o">=</span> <span class="n">loss_func</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">loss_history_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_test</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_epoch</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Training] Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s1">, loss_train: </span><span class="si">{</span><span class="n">loss_history_train</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1">, loss_test: </span><span class="si">{</span><span class="n">loss_history_test</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Training] Finished.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Training] Epoch: 0, loss_train: 2.45e-03, loss_test: 3.02e-03
+[Training] Epoch: 50, loss_train: 9.18e-04, loss_test: 6.05e-04
+[Training] Epoch: 100, loss_train: 1.67e-04, loss_test: 4.25e-04
+[Training] Epoch: 150, loss_train: 2.19e-04, loss_test: 2.58e-04
+[Training] Epoch: 200, loss_train: 8.51e-05, loss_test: 1.31e-04
+[Training] Epoch: 250, loss_train: 5.38e-05, loss_test: 2.03e-04
+[Training] Epoch: 300, loss_train: 2.48e-05, loss_test: 1.18e-04
+[Training] Epoch: 350, loss_train: 5.64e-05, loss_test: 1.24e-04
+[Training] Epoch: 400, loss_train: 1.71e-05, loss_test: 1.13e-04
+[Training] Epoch: 450, loss_train: 6.76e-05, loss_test: 1.25e-04
+[Training] Finished.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot loss history for training and test sets</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">loss_history_train</span><span class="p">)),</span> <span class="n">loss_history_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Training Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Training Loss&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">loss_history_test</span><span class="p">)),</span> <span class="n">loss_history_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Test Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Loss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Loss&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/FNO-1D_10_1.png" src="../../_images/FNO-1D_10_1.png" />
+</div>
+</div>
+</section>
+<section id="model-evaluation">
+<h2>Model evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resolution_test_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">1024</span><span class="p">]</span> <span class="c1"># resolution for test data, which can be different from the resolution of training data</span>
+
+<span class="k">for</span> <span class="n">resolution_test</span> <span class="ow">in</span> <span class="n">resolution_test_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Test] resolution_test: &#39;</span><span class="p">,</span> <span class="n">resolution_test</span><span class="p">)</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span> <span class="o">//</span> <span class="n">resolution_test</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+    
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># plot comparison</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ground Truth&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">resolution_test</span><span class="p">),</span> <span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">resolution_test</span><span class="p">),</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;resolution_test: </span><span class="si">{</span><span class="n">resolution_test</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Test] resolution_test:  64
+[Dataset] downsampled raw data - x_data: torch.Size([2048, 64]), y_data: torch.Size([2048, 64])
+[Dataset] x_train: torch.Size([1000, 64, 2]), y_train: torch.Size([1000, 64])
+[Dataset] x_test: torch.Size([200, 64, 2]), y_test: torch.Size([200, 64])
+[Test] resolution_test:  256
+[Dataset] downsampled raw data - x_data: torch.Size([2048, 256]), y_data: torch.Size([2048, 256])
+[Dataset] x_train: torch.Size([1000, 256, 2]), y_train: torch.Size([1000, 256])
+[Dataset] x_test: torch.Size([200, 256, 2]), y_test: torch.Size([200, 256])
+[Test] resolution_test:  1024
+[Dataset] downsampled raw data - x_data: torch.Size([2048, 1024]), y_data: torch.Size([2048, 1024])
+[Dataset] x_train: torch.Size([1000, 1024, 2]), y_train: torch.Size([1000, 1024])
+[Dataset] x_test: torch.Size([200, 1024, 2]), y_test: torch.Size([200, 1024])
+</pre></div>
+</div>
+<img alt="../../_images/FNO-1D_12_1.png" src="../../_images/FNO-1D_12_1.png" />
+<img alt="../../_images/FNO-1D_12_2.png" src="../../_images/FNO-1D_12_2.png" />
+<img alt="../../_images/FNO-1D_12_3.png" src="../../_images/FNO-1D_12_3.png" />
+</div>
+</div>
+</section>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this heading">#</a></h1>
+<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
-<li><p>FNO github: <a class="github reference external" href="https://github.com/neuraloperator/neuraloperator/?tab=readme-ov-file">neuraloperator/neuraloperator</a></p></li>
+<li><p>FNO paper: Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhattacharya, K., Stuart, A., &amp; Anandkumar, A. (2020). Fourier neural operator for parametric partial differential equations. arXiv preprint arXiv:2010.08895</p></li>
+<li><p>FNO official github: <a class="reference external" href="https://github.com/neuraloperator/neuraloperator/?tab=readme-ov-file">https://github.com/neuraloperator/neuraloperator/?tab=readme-ov-file</a></p></li>
+<li><p>FNO tutorial: <a class="reference external" href="https://github.com/Ceyron/machine-learning-and-simulation/blob/main/english/neural_operators/simple_FNO_in_JAX.ipynb">https://github.com/Ceyron/machine-learning-and-simulation/blob/main/english/neural_operators/simple_FNO_in_JAX.ipynb</a></p></li>
+<li><p>DeepONet &amp; FNO: <a class="reference external" href="https://github.com/lu-group/deeponet-fno">https://github.com/lu-group/deeponet-fno</a></p></li>
 <li><p>FNO documentation: <a class="reference external" href="https://neuraloperator.github.io/neuraloperator/dev/user_guide/neural_operators.html">https://neuraloperator.github.io/neuraloperator/dev/user_guide/neural_operators.html</a></p></li>
 <li><p>FNO blog: <a class="reference external" href="https://zongyi-li.github.io/blog/2020/fourier-pde/">https://zongyi-li.github.io/blog/2020/fourier-pde/</a></p></li>
 <li><p>FNO news: <a class="reference external" href="https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/">https://www.technologyreview.com/2020/10/30/1011435/ai-fourier-neural-network-cracks-navier-stokes-and-partial-differential-equations/</a></p></li>
@@ -864,7 +855,7 @@ Training time: 11.389
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./FNO/FNO-1D"
         },
         predefinedOutput: true
@@ -872,96 +863,43 @@ Training time: 11.389
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="../../intro.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Welcome to Scientific Machine Learning Book</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Welcome to Scientific Machine Learning Book</p>
+        </div>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fourier Neural Operator</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reference">Reference</a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Xiaoyu Xie
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  <p class="copyright">
-    
-      © Copyright 2022.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Xiaoyu Xie<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>
