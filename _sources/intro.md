@@ -12,3 +12,15 @@ In this interactive book, you will learn the state-of-the-art deep learning meth
 
 ## Contact
 If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 
+
+## Citation
+If you find this book helful, please cite it:
+```
+@book{xie2024sml,
+  title={Scientific Machine Learning},
+  author={Xiaoyu Xie},
+  url={https://xiaoyuxie.top/Sci-ML-Book},
+  year={2024},
+  publisher={WWW}
+}
+```
