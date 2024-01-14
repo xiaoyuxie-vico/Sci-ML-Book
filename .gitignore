@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 ~$*.xlsx
+_build/
 *.pkl
 __pycache__/
 *.py[cod]

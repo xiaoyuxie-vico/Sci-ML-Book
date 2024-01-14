@@ -4,5 +4,5 @@
 format: jb-book
 root: intro
 chapters:
-- file: 0-FNO
+- file: FNO/FNO-1D/FNO-1D
 
