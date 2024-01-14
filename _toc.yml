@@ -18,4 +18,6 @@ parts:
   - caption: Part 4. U-Net
     chapters:
       - file: U-Net/U-Net-2D/UNet-2D
-  - file: references
+  - caption: References
+    chapters:
+      - file: references
