@@ -1,8 +1,8 @@
 # Welcome to Scientific Machine Learning Book
 
-- Author: Xiaoyu Xie, Northwestern University
-- Email: xiaoyuxie2020@u.northwestern.edu
-- Personal website: https://xiaoyuxie.top
+- **Author**: Xiaoyu Xie, Northwestern University
+- **Email**: xiaoyuxie2020@u.northwestern.edu
+- **Personal website**: https://xiaoyuxie.top
 
 ## Table of Contents
 ```{tableofcontents}
