@@ -387,13 +387,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-fno-model">
-   Define FNO model
+  <a class="reference internal nav-link" href="#dataset-preparation">
+   Dataset preparation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-preparation">
-   Dataset preparation
+  <a class="reference internal nav-link" href="#define-fno-model">
+   Define FNO model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -446,13 +446,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-fno-model">
-   Define FNO model
+  <a class="reference internal nav-link" href="#dataset-preparation">
+   Dataset preparation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dataset-preparation">
-   Dataset preparation
+  <a class="reference internal nav-link" href="#define-fno-model">
+   Define FNO model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -577,6 +577,58 @@ title="Print to PDF"
 
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span> <span class="o">=</span> <span class="n">dataset_path</span> <span class="c1"># update the dataset_path, this is optional</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset-preparation">
+<h2>Dataset preparation<a class="headerlink" href="#dataset-preparation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
+    <span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] downsampled raw data - x_data: </span><span class="si">{</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_data: </span><span class="si">{</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># split into train and test</span>
+    <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (num_trajectory, Nx): (1000, 128)</span>
+    <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:]</span>
+
+    <span class="c1"># prepare grid information (optional)</span>
+    <span class="n">grid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># downsampled grid, (Nx, 1): (128, 1)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+    <span class="c1"># concatenate the spatial grid and the spatial solution</span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_train: </span><span class="si">{</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_test: </span><span class="si">{</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># create data loader</span>
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span>
+
+<span class="c1"># load training data</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># a dictionary</span>
+<span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Dataset] downsampled raw data - x_data: torch.Size([2048, 1024]), y_data: torch.Size([2048, 1024])
+[Dataset] x_train: torch.Size([1000, 1024, 2]), y_train: torch.Size([1000, 1024])
+[Dataset] x_test: torch.Size([200, 1024, 2]), y_test: torch.Size([200, 1024])
 </pre></div>
 </div>
 </div>
@@ -714,58 +766,6 @@ title="Print to PDF"
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, 1], eg. [20, 128, 128] -&gt; [20, 128, 1]</span>
 
         <span class="k">return</span> <span class="n">x</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="dataset-preparation">
-<h2>Dataset preparation<a class="headerlink" href="#dataset-preparation" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
-    <span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
-    <span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] downsampled raw data - x_data: </span><span class="si">{</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_data: </span><span class="si">{</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="c1"># split into train and test</span>
-    <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (num_trajectory, Nx): (1000, 128)</span>
-    <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:]</span>
-
-    <span class="c1"># prepare grid information (optional)</span>
-    <span class="n">grid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># downsampled grid, (Nx, 1): (128, 1)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-
-    <span class="c1"># concatenate the spatial grid and the spatial solution</span>
-    <span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_train: </span><span class="si">{</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_test: </span><span class="si">{</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="c1"># create data loader</span>
-    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span>
-        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
-        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
-    <span class="p">)</span>
-    <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span>
-        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
-        <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span>
-
-<span class="c1"># load training data</span>
-<span class="n">raw_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># a dictionary</span>
-<span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Dataset] downsampled raw data - x_data: torch.Size([2048, 1024]), y_data: torch.Size([2048, 1024])
-[Dataset] x_train: torch.Size([1000, 1024, 2]), y_train: torch.Size([1000, 1024])
-[Dataset] x_test: torch.Size([200, 1024, 2]), y_test: torch.Size([200, 1024])
 </pre></div>
 </div>
 </div>
