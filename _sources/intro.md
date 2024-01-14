@@ -1,6 +1,7 @@
 # Welcome to Scientific Machine Learning Book
 
 
+## Table of Contents
 ```{tableofcontents}
 ```
 
