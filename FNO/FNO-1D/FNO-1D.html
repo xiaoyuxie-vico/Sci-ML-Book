@@ -372,6 +372,16 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-dataset">
+   Download dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-python-packages">
+   Import python packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#define-fno-model">
    Define FNO model
   </a>
@@ -421,6 +431,16 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-dataset">
+   Download dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-python-packages">
+   Import python packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#define-fno-model">
    Define FNO model
   </a>
@@ -468,6 +488,61 @@ title="Print to PDF"
 <li><p>Email: <a class="reference external" href="mailto:xiaoyuxie2020&#37;&#52;&#48;u&#46;northwestern&#46;edu">xiaoyuxie2020<span>&#64;</span>u<span>&#46;</span>northwestern<span>&#46;</span>edu</a></p></li>
 <li><p>Date: January 13, 2024</p></li>
 </ul>
+<section id="download-dataset">
+<h2>Download dataset<a class="headerlink" href="#download-dataset" title="Permalink to this headline">#</a></h2>
+<p><strong>Important notes</strong>:</p>
+<ul class="simple">
+<li><p>Make sure you download and save the dataset from (<a class="reference external" href="https://drive.google.com/file/d/1yAoPhQCglShfcMPhIC2hixGPg0NrX7SH/view?usp=sharing">https://drive.google.com/file/d/1yAoPhQCglShfcMPhIC2hixGPg0NrX7SH/view?usp=sharing</a>) to your google drive or your local computer</p></li>
+<li><p>Make sure you choose GPU in the Runtime/Change runtime type or use GPU in your local computer</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mount your Google Drive.</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s2">&quot;/content/drive&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># check whether the dataset is already in your google drive or local computer</span>
+<span class="o">!</span>ls /content/drive/MyDrive/Dataset
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>burgers_data_R10.mat
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">is_running_on_colab</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;COLAB_GPU&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+
+<span class="c1"># Use the function to check</span>
+<span class="k">if</span> <span class="n">is_running_on_colab</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This notebook is running on Google Colab.&quot;</span><span class="p">)</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/Dataset/burgers_data_R10.mat&#39;</span> <span class="c1"># used on Colab, you need to change the path for your file</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This notebook is not running on Google Colab.&quot;</span><span class="p">)</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;dataset/burgers_data_R10.mat&#39;</span> <span class="c1"># put the dataset in a relative path</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-python-packages">
+<h2>Import python packages<a class="headerlink" href="#import-python-packages" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -483,13 +558,8 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
-  from .autonotebook import tqdm as notebook_tqdm
-</pre></div>
 </div>
-</div>
-</div>
+</section>
 <section id="define-fno-model">
 <h2>Define FNO model<a class="headerlink" href="#define-fno-model" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
@@ -536,11 +606,11 @@ title="Print to PDF"
 <span class="sd">            torch.Tensor: Result of complex multiplication of input and weights, of shape (batch, out_channel, x).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># (batch, in_channel, x ), (in_channel, out_channel, x) -&gt; (batch, out_channel, x)</span>
-        <span class="c1"># in_channel is the common dimension along which the operation is performed. </span>
+        <span class="c1"># in_channel is the common dimension along which the operation is performed.</span>
         <span class="c1"># It suggests that every channel (or feature) of the input is being transformed into a new set of channels (or features) in the output.</span>
-        <span class="c1"># The operation iterates over each batch and each position x, multiplying the input channels </span>
+        <span class="c1"># The operation iterates over each batch and each position x, multiplying the input channels</span>
         <span class="c1"># by the corresponding weights and summing the results to produce the output channels.</span>
-        
+
         <span class="c1"># For a given position i in the x dimension and a given batch element:</span>
         <span class="c1"># Take all values in A at this position and batch (A[batch, :, i]) – a slice of shape (in_channel).</span>
         <span class="c1"># Take all corresponding values in B at this position (B[:, :, i]) – a matrix of shape (in_channel, out_channel).</span>
@@ -551,11 +621,11 @@ title="Print to PDF"
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="c1"># Compute Fourier coeffcients</span>
         <span class="n">x_ft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># [Batch, C_in, Nx] -&gt; [Batch, C_in, Nx//2 + 1], eg. [20, 64, 128] -&gt; [20, 64, 65]</span>
-        
+
         <span class="c1"># Multiply relevant Fourier modes</span>
         <span class="n">out_ft</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>  <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">)</span> <span class="c1"># [Batch, Nc, Nx//2 + 1], eg. [20, 64, 65]</span>
         <span class="c1"># [Batch, C_in, self.modes1] * [C_in, C_out, self.modes1] -&gt; [Batch, C_out, self.modes1]</span>
-        <span class="n">out_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compl_mul1d</span><span class="p">(</span><span class="n">x_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights1</span><span class="p">)</span>  
+        <span class="n">out_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compl_mul1d</span><span class="p">(</span><span class="n">x_ft</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights1</span><span class="p">)</span>
 
         <span class="c1"># Return to physical space</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">out_ft</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># [Batch, C_out, self.modes1] -&gt; [Batch, C_out, Nx], eg. [20, 64, 65] -&gt; [20, 64, 128]</span>
@@ -580,7 +650,7 @@ title="Print to PDF"
         <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">SpectralConv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">SpectralConv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv3</span> <span class="o">=</span> <span class="n">SpectralConv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes1</span><span class="p">)</span>
-        
+
         <span class="bp">self</span><span class="o">.</span><span class="n">w0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">w1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">w2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -620,7 +690,7 @@ title="Print to PDF"
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, 128], eg. [20, 128, 64] -&gt; [20, 128, 128]</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>         <span class="c1"># [Batch, Nx, C] -&gt; [Batch, Nx, 1], eg. [20, 128, 128] -&gt; [20, 128, 1]</span>
-        
+
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 </div>
@@ -638,34 +708,32 @@ title="Print to PDF"
     <span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">500</span>                  <span class="c1"># number of training epoch</span>
     <span class="c1"># num_epoch = 20</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">20</span>                  <span class="c1"># batch size</span>
-    
+
     <span class="c1"># Adam optimizer parameters</span>
     <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">1e-4</span>              <span class="c1"># weight decay for Adam optimizer</span>
-    
+
     <span class="c1"># learning rate decay parameters</span>
     <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span>                       <span class="c1"># learning rate</span>
     <span class="n">step_size</span> <span class="o">=</span> <span class="mi">100</span>                  <span class="c1"># step size for step-wise learning rate decay</span>
     <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.5</span>                      <span class="c1"># the decay coefficient for step-wise learning rate decay</span>
-    
+
     <span class="n">modes</span> <span class="o">=</span> <span class="mi">16</span>                       <span class="c1"># number of Fourier modes to multiply, at most floor(N/2) + 1</span>
     <span class="n">width</span> <span class="o">=</span> <span class="mi">64</span>                       <span class="c1"># number of hidden channel</span>
-    
+
     <span class="c1">#========================#</span>
     <span class="c1"># dataset information</span>
     <span class="c1">#========================#</span>
     <span class="c1"># download dataset from: https://drive.google.com/file/d/16a8od4vidbiNR3WtaBPCSZ0T3moxjhYe/view?usp=drive_link</span>
-    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;dataset/burgers_data_R10.mat&#39;</span>      
+    <span class="c1"># dataset_path = &#39;dataset/burgers_data_R10.mat&#39;</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/Dataset/burgers_data_R10.mat&#39;</span> <span class="c1"># used on Colab, you need to change the path for your file</span>
     <span class="n">sub</span> <span class="o">=</span> <span class="mi">8</span>                             <span class="c1"># downsample rate for spatial dimension</span>
     <span class="n">resolution_original</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span>         <span class="c1"># original resolution of the dataset</span>
     <span class="n">num_train</span> <span class="o">=</span> <span class="mi">1000</span>                    <span class="c1"># number of training data</span>
     <span class="n">num_test</span> <span class="o">=</span> <span class="mi">200</span>                      <span class="c1"># number of test data</span>
-    
-    <span class="c1">#========================#</span>
-    <span class="c1"># results</span>
-    <span class="c1">#========================#</span>
-    <span class="n">model_path</span> <span class="o">=</span> <span class="s1">&#39;results/model_burgers_R10&#39;</span>
-    
+
+
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+<span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span> <span class="o">=</span> <span class="n">dataset_path</span> <span class="c1"># update the dataset_path, this is optional</span>
 </pre></div>
 </div>
 </div>
@@ -676,10 +744,10 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
-    <span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024) </span>
-    <span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024) </span>
+    <span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
+    <span class="n">y_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_data</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">])[:,</span> <span class="p">::</span><span class="n">sub</span><span class="p">]</span>  <span class="c1"># (num_trajectory, Nx): (2048, 1024)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] downsampled raw data - x_data: </span><span class="si">{</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_data: </span><span class="si">{</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    
+
     <span class="c1"># split into train and test</span>
     <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[:</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># (num_trajectory, Nx): (1000, 128)</span>
     <span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:],</span> <span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">:,</span> <span class="p">:]</span>
@@ -687,29 +755,29 @@ title="Print to PDF"
     <span class="c1"># prepare grid information (optional)</span>
     <span class="n">grid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">grid_all</span><span class="p">[::</span><span class="n">sub</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># downsampled grid, (Nx, 1): (128, 1)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> 
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
 
     <span class="c1"># concatenate the spatial grid and the spatial solution</span>
-    <span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> 
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">x_test</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_train: </span><span class="si">{</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Dataset] x_test: </span><span class="si">{</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, y_test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="c1"># create data loader</span>
     <span class="n">train_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> 
-        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> 
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
         <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
     <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span> 
-        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> 
+        <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">),</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
         <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span>
 
 <span class="c1"># load training data</span>
-<span class="n">raw_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># a dictionary </span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span><span class="p">)</span>  <span class="c1"># a dictionary</span>
 <span class="n">train_loader</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -750,7 +818,7 @@ title="Print to PDF"
 
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="n">loss_history_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_train</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-        
+
     <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>  <span class="c1"># change the learning rate</span>
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -763,22 +831,21 @@ title="Print to PDF"
     <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_epoch</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Training] Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s1">, loss_train: </span><span class="si">{</span><span class="n">loss_history_train</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1">, loss_test: </span><span class="si">{</span><span class="n">loss_history_test</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Training] Finished.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Training] Epoch: 0, loss_train: 2.45e-03, loss_test: 3.02e-03
-[Training] Epoch: 50, loss_train: 9.18e-04, loss_test: 6.05e-04
-[Training] Epoch: 100, loss_train: 1.67e-04, loss_test: 4.25e-04
-[Training] Epoch: 150, loss_train: 2.19e-04, loss_test: 2.58e-04
-[Training] Epoch: 200, loss_train: 8.51e-05, loss_test: 1.31e-04
-[Training] Epoch: 250, loss_train: 5.38e-05, loss_test: 2.03e-04
-[Training] Epoch: 300, loss_train: 2.48e-05, loss_test: 1.18e-04
-[Training] Epoch: 350, loss_train: 5.64e-05, loss_test: 1.24e-04
-[Training] Epoch: 400, loss_train: 1.71e-05, loss_test: 1.13e-04
-[Training] Epoch: 450, loss_train: 6.76e-05, loss_test: 1.25e-04
+[Training] Epoch: 50, loss_train: 8.67e-04, loss_test: 5.29e-04
+[Training] Epoch: 100, loss_train: 1.61e-04, loss_test: 4.13e-04
+[Training] Epoch: 150, loss_train: 2.14e-04, loss_test: 2.62e-04
+[Training] Epoch: 200, loss_train: 8.59e-05, loss_test: 1.33e-04
+[Training] Epoch: 250, loss_train: 5.18e-05, loss_test: 2.03e-04
+[Training] Epoch: 300, loss_train: 2.43e-05, loss_test: 1.18e-04
+[Training] Epoch: 350, loss_train: 5.52e-05, loss_test: 1.24e-04
+[Training] Epoch: 400, loss_train: 1.63e-05, loss_test: 1.14e-04
+[Training] Epoch: 450, loss_train: 6.74e-05, loss_test: 1.27e-04
 [Training] Finished.
 </pre></div>
 </div>
@@ -808,7 +875,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Test Loss&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/FNO-1D_10_1.png" src="../../_images/FNO-1D_10_1.png" />
+<img alt="../../_images/FNO-1D_16_1.png" src="../../_images/FNO-1D_16_1.png" />
 </div>
 </div>
 </section>
@@ -822,7 +889,7 @@ title="Print to PDF"
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Test] resolution_test: &#39;</span><span class="p">,</span> <span class="n">resolution_test</span><span class="p">)</span>
     <span class="n">sub</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">resolution_original</span> <span class="o">//</span> <span class="n">resolution_test</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">test_loader</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
-    
+
     <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
@@ -855,9 +922,9 @@ title="Print to PDF"
 [Dataset] x_test: torch.Size([200, 1024, 2]), y_test: torch.Size([200, 1024])
 </pre></div>
 </div>
-<img alt="../../_images/FNO-1D_12_1.png" src="../../_images/FNO-1D_12_1.png" />
-<img alt="../../_images/FNO-1D_12_2.png" src="../../_images/FNO-1D_12_2.png" />
-<img alt="../../_images/FNO-1D_12_3.png" src="../../_images/FNO-1D_12_3.png" />
+<img alt="../../_images/FNO-1D_18_1.png" src="../../_images/FNO-1D_18_1.png" />
+<img alt="../../_images/FNO-1D_18_2.png" src="../../_images/FNO-1D_18_2.png" />
+<img alt="../../_images/FNO-1D_18_3.png" src="../../_images/FNO-1D_18_3.png" />
 </div>
 </div>
 </section>
