@@ -17,14 +17,18 @@ latex:
   latex_documents:
     targetname: book.tex
 
-# Add a bibtex file so that we can create citations
-bibtex_bibfiles:
-  - references.bib
+# # Add a bibtex file so that we can create citations
 # sphinx:
 #   config:
 #     bibtex_reference_style: author_year
 #     bibtex_bibfiles: references.bib
 
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+bibtex_bibfiles:
+    - references.bib
+    
 # Information about where the book exists on the web
 repository:
   url: https://github.com/xiaoyuxie-vico/Sci-ML-Book  # Online location of your book

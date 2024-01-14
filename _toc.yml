@@ -20,4 +20,4 @@ parts:
       - file: U-Net/U-Net-2D/UNet-2D
   - caption: References
     chapters:
-      - file: references
+      - file: references.md
