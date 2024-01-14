@@ -4,6 +4,8 @@
 - **Email**: xiaoyuxie2020@u.northwestern.edu
 - **Personal website**: https://xiaoyuxie.top
 
+In this interactive book, you will learn the state-of-the-art deep learning methods for solving various challenging scientific and engineering problems. Each interactive hands-on tutorial will include code, visualization, and youtube video for paper and implementation. You can also directly run all toturials in Colab or your local computers.
+
 ## Table of Contents
 ```{tableofcontents}
 ```
