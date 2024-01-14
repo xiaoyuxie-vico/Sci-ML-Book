@@ -569,14 +569,11 @@ title="Print to PDF"
     <span class="c1">#========================#</span>
     <span class="c1"># dataset information</span>
     <span class="c1">#========================#</span>
-    <span class="c1"># download dataset from: https://drive.google.com/file/d/16a8od4vidbiNR3WtaBPCSZ0T3moxjhYe/view?usp=drive_link</span>
-    <span class="c1"># dataset_path = &#39;dataset/burgers_data_R10.mat&#39;</span>
-    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;/content/drive/MyDrive/Dataset/burgers_data_R10.mat&#39;</span> <span class="c1"># used on Colab, you need to change the path for your file</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="s1">&#39;dataset/burgers_data_R10.mat&#39;</span>
     <span class="n">sub</span> <span class="o">=</span> <span class="mi">8</span>                             <span class="c1"># downsample rate for spatial dimension</span>
     <span class="n">resolution_original</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">13</span>         <span class="c1"># original resolution of the dataset</span>
     <span class="n">num_train</span> <span class="o">=</span> <span class="mi">1000</span>                    <span class="c1"># number of training data</span>
     <span class="n">num_test</span> <span class="o">=</span> <span class="mi">200</span>                      <span class="c1"># number of test data</span>
-
 
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
 <span class="n">cfg</span><span class="o">.</span><span class="n">dataset_path</span> <span class="o">=</span> <span class="n">dataset_path</span> <span class="c1"># update the dataset_path, this is optional</span>
