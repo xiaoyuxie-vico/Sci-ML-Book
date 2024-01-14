@@ -3,7 +3,7 @@
 
 title: Scientific Machine Learning
 author: Xiaoyu Xie
-logo: logo.png
+logo: book_logo.png
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
