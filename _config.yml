@@ -6,6 +6,7 @@ author: Xiaoyu Xie
 logo: book_logo.png
 copyright: "2024"
 exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
+only_build_toc_files: True
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -28,7 +29,7 @@ sphinx:
     bibtex_reference_style: author_year
 bibtex_bibfiles:
     - references.bib
-    
+
 # Information about where the book exists on the web
 repository:
   url: https://github.com/xiaoyuxie-vico/Sci-ML-Book  # Online location of your book
