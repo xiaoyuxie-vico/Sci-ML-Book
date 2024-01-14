@@ -15,5 +15,6 @@ parts:
   - caption: Part 3. Physics-Informed Neural Networks
     chapters:
       - file: PINN/PINN-1D/PINN-1D
-  # - caption: Part 4. U-Net
-  # - caption: Part 5. ConvLSTM
+  - caption: Part 4. U-Net
+    chapters:
+      - file: U-Net/U-Net-2D/UNet-2D
