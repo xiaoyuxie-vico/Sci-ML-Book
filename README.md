@@ -7,7 +7,9 @@ In this interactive scientific machine learning book, I will include these conte
 1. Forward model with deep learning
    1. Operator learning
       1. Fourier Neural Operator 
-      2. Physics-informed neural network
+         1. Fourier Neural Operator for 1D burgers equation [Done]
+      2. DeepONet
+      3. Physics-informed neural network
    2. Purely data-driven methods
       1. U-Net
       2. ConvLSTM
@@ -18,4 +20,4 @@ In this interactive scientific machine learning book, I will include these conte
 
 
 ## Contact
-If you are also interested in this field, please feel free to contact me by sendind an email to xiaoyuxie2020@u.northwestern.edu. 
+If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 

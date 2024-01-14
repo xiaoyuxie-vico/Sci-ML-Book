@@ -3,6 +3,17 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: FNO/FNO-1D/FNO-1D
 
+parts:
+  - caption: Part 1. Fourier Neural Operator
+    chapters:
+    - file: FNO/FNO-1D/FNO-1D
+    - file: FNO/FNO-2D/FNO-2D
+  - caption: Part 2. DeepONet
+    chapters:
+      - file: DeepONet/DeepONet-1D/DeepONet-1D
+  - caption: Part 3. Physics-Informed Neural Networks
+    chapters:
+      - file: PINN/PINN-1D/PINN-1D
+  # - caption: Part 4. U-Net
+  # - caption: Part 5. ConvLSTM
