@@ -1,4 +1,4 @@
-# Welcome to Scientific Machine Learning Book
+# Welcome to Hands-on Scientific Machine Learning!
 
 - **Author**: Xiaoyu Xie, Northwestern University
 - **Email**: xiaoyuxie2020@u.northwestern.edu
