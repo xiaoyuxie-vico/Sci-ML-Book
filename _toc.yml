@@ -12,7 +12,7 @@ parts:
   - caption: Part 2. DeepONet (To be updated)
     chapters:
       - file: DeepONet/DeepONet-1D/DeepONet-1D
-  - caption: Part 3. Physics-Informed Neural Networks
+  - caption: Part 3. Physics-Informed Neural Networks (To be updated)
     chapters:
       - file: PINN/PINN-1D/PINN-1D 
   - caption: Part 4. U-Net (To be updated)
