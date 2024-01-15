@@ -10,6 +10,9 @@ In this interactive book, you will learn the state-of-the-art deep learning meth
 ```{tableofcontents}
 ```
 
+## Update
+[Jan, 2024]: Finished the code and video for 1D Fourier Neural Operator example;
+
 ## Discord Community
 I created a discord channel for people with similar interests to discuss in depth. The discord channel can be found [here](https://discord.gg/QBEeVmG3).
 
