@@ -9,13 +9,13 @@ parts:
     chapters:
     - file: FNO/FNO-1D/FNO-1D
     - file: FNO/FNO-2D/FNO-2D
-  - caption: Part 2. DeepONet
+  - caption: Part 2. DeepONet (To be updated)
     chapters:
       - file: DeepONet/DeepONet-1D/DeepONet-1D
   - caption: Part 3. Physics-Informed Neural Networks
     chapters:
-      - file: PINN/PINN-1D/PINN-1D
-  - caption: Part 4. U-Net
+      - file: PINN/PINN-1D/PINN-1D 
+  - caption: Part 4. U-Net (To be updated)
     chapters:
       - file: U-Net/U-Net-2D/UNet-2D
   - caption: References
