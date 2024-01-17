@@ -4,7 +4,13 @@
 - **Email**: xiaoyuxie2020@u.northwestern.edu
 - **Personal website**: https://xiaoyuxie.top
 
+## Style
+
 In this interactive book, you will learn the state-of-the-art deep learning methods for solving various challenging scientific and engineering problems. Each interactive hands-on tutorial will include code, visualization, and youtube video for paper and implementation. You can also directly run all toturials in Colab or your local computers.
+
+## Scope
+
+The scope of this book is to explore how different scientific machine learning was proposed instead of solely telling you how to use different methods. This is because our ultimate goal is to develop new algorithms that can solve problems and transform the world. We will always face different and new problems that we have never seen. It is important to hone ourself to re-discover these milestone methods and have hands-on experience for them.
 
 ## Table of Contents
 ```{tableofcontents}
