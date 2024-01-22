@@ -19,5 +19,7 @@ In this interactive scientific machine learning book, I will include these conte
 3. Data-driven discovery of governing equations
 
 
+Find more at [xiaoyuxie.top/Sci-ML-Book/intro.html](https://xiaoyuxie.top/Sci-ML-Book/intro.html).
+
 ## Contact
 If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 
