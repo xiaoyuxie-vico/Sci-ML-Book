@@ -17,7 +17,7 @@ The scope of this book is to explore how different scientific machine learning w
 ```
 
 ## Discord Community
-I created a discord channel for people with similar interests to discuss in depth. The discord channel can be found [here](https://discord.gg/QBEeVmG3).
+I created a discord channel for people with similar interests to discuss in depth. The discord channel can be found [here](https://discord.gg/SG27GvNU).
 
 ## Contact
 If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 
