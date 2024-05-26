@@ -1,0 +1,64 @@
+Traceback (most recent call last):
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 166, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+"""
+@Author: Xiaoyu Xie
+@Email: xiaoyuxie2020@u.northwestern.edu
+@Date: 2024-01-01
+@Original Code: https://github.com/neuraloperator/neuraloperator/blob/master/fourier_1d.py
+"""
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.nn.parameter import Parameter
+import matplotlib.pyplot as plt
+from scipy.io import loadmat
+
+import os
+import time
+import operator
+from functools import reduce
+from functools import partial
+from timeit import default_timer
+from utilities3 import *
+import scipy
+
+seed = 0
+torch.manual_seed(seed)
+np.random.seed(seed)
+
+print("torch.cuda.is_available(): " + str(torch.cuda.is_available()) )
+------------------
+
+----- stderr -----
+/home/xxd5545/.conda/envs/torch2/lib/python3.9/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [0;32mIn[1], line 22[0m
+[1;32m     20[0m [38;5;28;01mfrom[39;00m [38;5;21;01mfunctools[39;00m [38;5;28;01mimport[39;00m partial
+[1;32m     21[0m [38;5;28;01mfrom[39;00m [38;5;21;01mtimeit[39;00m [38;5;28;01mimport[39;00m default_timer
+[0;32m---> 22[0m [38;5;28;01mfrom[39;00m [38;5;21;01mutilities3[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m
+[1;32m     23[0m [38;5;28;01mimport[39;00m [38;5;21;01mscipy[39;00m
+[1;32m     25[0m seed [38;5;241m=[39m [38;5;241m0[39m
+
+[0;31mModuleNotFoundError[0m: No module named 'utilities3'
+
