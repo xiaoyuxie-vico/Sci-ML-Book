@@ -23,7 +23,7 @@ I created a discord channel for people with similar interests to discuss in dept
 If you are also interested in this field, please feel free to contact me by sending an email to xiaoyuxie2020@u.northwestern.edu. 
 
 ## Citation
-If you find this book helful, please cite it:
+If you find this book helpful, please cite it:
 ```
 @book{xie2024sml,
   title={Hands-on Scientific Machine Learning},
