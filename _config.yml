@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
@@ -47,4 +45,3 @@ html:
 launch_buttons:
   binderhub_url: ""
   colab_url: https://colab.research.google.com
->>>>>>> 8b65486ed8a46b65f9984ab8d332e56dead871e4
